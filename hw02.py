@@ -19,7 +19,6 @@ def divided_by(num:int,arr:list[int]):
 def small_div(arr1:list[int], arr2:list[int]) -> int:
     """
     Finds a smallest divider of two numbers given as prime defactorization in arrays arr1 and arr2, and returns it.
-    !!!This function will cannibalize the arr2!!!
 
     Args:
         arr1: Prime defactorization of first number.
@@ -28,13 +27,17 @@ def small_div(arr1:list[int], arr2:list[int]) -> int:
     Returns:
         INT number, the smallest divider of the two numbers given in arrays.
     """
+    arr1_copy:list[int] = arr1.copy()
+    arr2_copy:list[int] = arr2.copy()
     res:int = 1
-    for i in range(len(arr1)-1):
-        for j in range(len(arr2)-1):
-            if(arr1[i]==arr2[j]):
-                res += arr1[i]
-                del arr2[j]
+    while len(arr2_copy) > 0:
+        for i in range(len(arr1_copy)):
+            if(arr2_copy[0]==arr1_copy[i]):
+                res *= arr1_copy[i]
+                del arr1_copy[i]
                 break
+        del arr2_copy[0]
+                
     return res
 
 def tabulka(k:int):
@@ -46,18 +49,21 @@ def tabulka(k:int):
         divided_by(i+1,arr_i)
         for j in range(k):
             arr_j:list[int] = [1]
+
             divided_by(j+1,arr_j)
             div:int = small_div(arr_i, arr_j)
+            
             if(div>1):
                 print("x", end="")
             else:
                 print(" ", end="")
-            del arr_j
+            
             if(j==k-1):
                 print("")
             else:
                 print("|", end="")
-        del arr_i
+            arr_j.clear()
+        arr_i.clear()
         print("-"*(k*2-1))
 
-tabulka(4)
+tabulka(10)
