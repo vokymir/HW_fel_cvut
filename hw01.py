@@ -1,6 +1,16 @@
 # https://cw.fel.cvut.cz/wiki/courses/bab37zpr/hw/hw01
 
 def triangle(inc:bool, width:int, rows:int, gap:int, symbol:str):
+    """
+    Will print a triangle, or it's part.
+
+    Args:
+        inc: Is increasing. == Is is wider at the bottom?
+        width: How width it is at the widest row. Should be an odd number for triangle with only one tip.
+        rows: How many rows it shoul print, it prints the widest row every time, and then (rows-1) rows. If entered more than the triangle require, it will leave a blank space.
+        gap: How wide should the gap before be? Useful in funkce_1.
+        symbol: What symbol are we using to create a triangle? Only use 1 char.
+    """
     start:int
     end:int
     step:int
@@ -22,6 +32,15 @@ def triangle(inc:bool, width:int, rows:int, gap:int, symbol:str):
         print("")
 
 def row(border:str, inside:str, border_width:int, inside_width:int):
+    """
+    Prints a row with border chars on sides and inside chars in the middle, e.g. #----#.
+
+    Args:
+        border: Char (or string) which will be on the sides.
+        inside: Char (or string) which will be in the middle.
+        border_width: How many border symbols on each side.
+        inside_width: How many inside symbols in the middle.
+    """
     for i in range(border_width):
         print(border, end="")
     for i in range(inside_width):
@@ -69,5 +88,3 @@ def funkce_3(width:int, height:int, char:str):
     for i in range(height):
         row("|", char, 1, width-2)
     return 0
-
-funkce_3(9, 3, "a")
