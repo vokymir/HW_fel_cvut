@@ -9,7 +9,10 @@ class Guess:
 
 def dekoduj(sifrovany:str, odposlechnuty:str):
     #abc:list[str] = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
-    abc:str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    abc:str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+    """
+    Checking if input is valid.
+    """
     for i in range(len(sifrovany)):
         x = sifrovany[i]
         if(x>"z" or x<"A" or (x>"Z" and x<"a")):
@@ -23,6 +26,12 @@ def dekoduj(sifrovany:str, odposlechnuty:str):
     if(len(sifrovany) != len(odposlechnuty)):
         print("Error: Chybna delka vstupu!")
         return None
+    """
+    for every possible shift of letters
+        for every letter in word
+            finds a shifted letter, and if it equals letter from almost-decrypted text, ++
+        save the guess of the word
+    """
     resemblence:list[Guess] = []
     for i in range(len(abc)):
         shifted:str = ""
@@ -33,13 +42,20 @@ def dekoduj(sifrovany:str, odposlechnuty:str):
             if(shifted[j]==odposlechnuty[j]):
                 similarity += 1
         resemblence.append(Guess(i,shifted,similarity))
+    """
+    for every tried shift of letters
+        if it's more accurate than the yet most accurate, swap
+    """
     res:str = sifrovany
     howmuch:int = 0
-    for i in range(len(resemblence)):
-        if(resemblence[i].similarTo > howmuch):
-            res = resemblence[i].shiftedTo
-
+    for k in resemblence:
+        if(k.similarTo > howmuch):
+            res = k.shiftedTo
+            howmuch = k.similarTo
+    #end of procedure, returns a most similar to almost-decrypted result
     return res
+
+
 
 
 print(dekoduj("xUbbemehbT","XYlloworld"))
