@@ -59,3 +59,6 @@ def dekoduj(sifrovany:str, odposlechnuty:str):
 
 
 print(dekoduj("xUbbemehbT","XYlloworld"))
+print(dekoduj("mnoXYhnTLJ","JCudvgtXRi"))
+print(dekoduj("fghQRa-CEC","scbdeMKARZ"))
+print(dekoduj("fghQRa","scbdeMK"))
