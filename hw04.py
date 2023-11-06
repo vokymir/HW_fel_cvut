@@ -17,8 +17,19 @@ def histogram(text:str, scale:int=1, case_sensitive:bool=False):
         if (done == False):
                 Symbols.append(Symbol(x))
 
-    for i in Symbols:
-        print(i.symbol, end=" ")
-        print(i.count)
+    for i in range(len(Symbols)):
+        for j in range(len(Symbols)-i-1):
+            if(Symbols[j].symbol > Symbols[j+1].symbol):
+                help:Symbol = Symbols[j]
+                Symbols[j] = Symbols[j+1]
+                Symbols[j+1] = help
+    
+    SymbolsII:list[tuple] = []
+    for k in Symbols:
+        print(k.symbol, end=": ")
+        print("*"*k.count)
+        SymbolsII.append((k.symbol, k.count))
+    
+    return SymbolsII
 
-histogram("abcdabcaba")
+print(histogram("wabcdabcdsgjthwoievufnwohnaciugfqoaerucgynqpaoidcfhaewhiofaba"))
