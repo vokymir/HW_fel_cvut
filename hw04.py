@@ -8,7 +8,7 @@ class Symbol:
         self.symbol = symbol
         self.count = count
 
-def histogram(text:str, scale:int=1, case_sensitive:bool=False):
+def histogram(text:str, scale:int=1, case_sensitive:bool=False) -> list:
     Symbols:list[Symbol] = []
     biggest:int = 0
     # if it's not case sensitive, it switches everything to lowercase
@@ -53,7 +53,34 @@ def histogram(text:str, scale:int=1, case_sensitive:bool=False):
     
     return SymbolsII
 
+def serad(text:str, metoda:int, case_sensitive:bool = False) -> list:
+    res:list[tuple] = []
+    Htext:str = ""
+    for i in text:
+        if (not(i<"A" or i>"z" or (i>"Z" and i <"a")) or i==" "):
+            Htext = Htext + i
+    text = Htext
 
+    if not(case_sensitive):
+        text = text.casefold()
+    
+    words:list[str] = text.split(" ")
+    
+    for i in words:
+        if len(i)<4:
+            words.remove(i)
+        else:
+            if metoda == 0:
+                res.append((i, len(i)))
+    
+    for j in range(len(res)-1):
+        for k in range(len(res)-j-1):
+            if res[k][1] < res[k+1][1]:
+                help:tuple = res[k]
+                res[k] = res[k+1]
+                res[k+1] = help
+
+    return res
 
 
 
@@ -76,3 +103,5 @@ histogram('Ahoj svete, kde to kvete', 0)
 histogram('Ahoj svete, kde to kvete', 10)
 histogram('Aaaach, to je kraaasa', 4)
 """
+
+print(serad('Aaaach, to je kraaasa papelelelelele kukukuku', 0, True))
