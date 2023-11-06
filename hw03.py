@@ -31,8 +31,11 @@ def dekoduj(sifrovany:str, odposlechnuty:str):
         for every letter in word
             finds a shifted letter, and if it equals letter from almost-decrypted text, ++
         save the guess of the word
+        if it's more accurate than the yet most accurate, swap
     """
     resemblence:list[Guess] = []
+    res:str = sifrovany
+    howmuch:int = 0
     for i in range(len(abc)):
         shifted:str = ""
         similarity:int = 0
@@ -42,16 +45,10 @@ def dekoduj(sifrovany:str, odposlechnuty:str):
             if(shifted[j]==odposlechnuty[j]):
                 similarity += 1
         resemblence.append(Guess(i,shifted,similarity))
-    """
-    for every tried shift of letters
-        if it's more accurate than the yet most accurate, swap
-    """
-    res:str = sifrovany
-    howmuch:int = 0
-    for k in resemblence:
+        k:Guess = resemblence[i]
         if(k.similarTo > howmuch):
             res = k.shiftedTo
-            howmuch = k.similarTo
+            howmuch = k.similarTo    
     #end of procedure, returns a most similar to almost-decrypted result
     return res
 
