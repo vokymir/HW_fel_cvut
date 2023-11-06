@@ -72,13 +72,18 @@ def serad(text:str, metoda:int, case_sensitive:bool = False) -> list:
         else:
             if metoda == 0:
                 res.append((i, len(i)))
-    
+            elif metoda == 1:
+                res.append((i, len(i) - i.count("a") - i.count("A") - i.count("e") -i.count( "E") -i.count( "i") -i.count( "I") - i.count( "y") -i.count("Y") -i.count("o")-i.count( "O") -i.count("u") -i.count("U")))
+            elif metoda == 3:
+                pass
+
     for j in range(len(res)-1):
         for k in range(len(res)-j-1):
             if res[k][1] < res[k+1][1]:
                 help:tuple = res[k]
                 res[k] = res[k+1]
                 res[k+1] = help
+            
 
     return res
 
