@@ -1,6 +1,6 @@
 # https://cw.fel.cvut.cz/wiki/courses/bab37zpr/hw/hw05
 
-def validate(x:tuple,name:str,minus:int) -> tuple:
+def validate(x:tuple,name:str,minus:int, numOfSign:int) -> tuple:
     if(x[0] == False):
         return (False, None, [])
     else:
@@ -11,28 +11,29 @@ def validate(x:tuple,name:str,minus:int) -> tuple:
                 shouldAppend = False
         if shouldAppend:
             x[2].append(modified)
-        return (True, x[1] + 1, x[2])
+        return (True, numOfSign, x[2])
     
 
 
 def xml(text:str) -> tuple:
+    numOfSign:int = text.count("</")+text.count("/>")
     txtL = text.partition("<")
     txtR = txtL[2].partition(">")
     if "/" in txtR[0]:
         x = xml(txtR[2])
-        return validate(x,txtR[0],1)
+        return validate(x,txtR[0],1,numOfSign)
     spoj:str = "</" + txtR[0] + ">"
     txtM = txtR[2].partition(spoj)
     if "<" in txtM[0] or "<" in txtM[2]:
-        x = validate(xml(txtM[0]), txtR[0], 0)
-        y = validate(xml(txtM[2]), txtR[0], 0)
+        x = validate(xml(txtM[0]), txtR[0], 0, numOfSign)
+        y = validate(xml(txtM[2]), txtR[0], 0, numOfSign)
         if x[0] == False or y[0] == False:
             return (False, None, [])
         joinList:list = x[2].copy() + y[2].copy()
         for item in joinList:
             if joinList.count(item) > 1:
                 joinList.remove(item)
-        return (True, x[1]+y[1], joinList)
+        return (True, numOfSign, joinList)
     if txtM[1] == "" and txtL[1] != "":
         return (False, None, [])
     if txtM[1] == "" and txtL[1] == "":
