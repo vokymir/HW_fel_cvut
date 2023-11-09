@@ -6,6 +6,11 @@ class Guess:
         self.shiftedTo = shiftedTo
         self.similarTo = similarTo
 
+"""
+Tinka has an upgrade: what if we don't check each possible combination, but only actually used ones.
+So the programm would compare first letter from both strings, finds how much it was shifted and try the shift for the whole string.
+If the shift was already tryied it skips. Finally it woulf keep track of the shift with highest similarity rate, and return it at the end.
+"""
 
 def dekoduj(sifrovany:str, odposlechnuty:str):
     #abc:list[str] = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
